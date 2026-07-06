@@ -10,7 +10,7 @@
 
 <div class="page-wrap">
   <div class="card">
-    <p class="eyebrow">allora è un Sì, ottima scelta 🎉</p>
+    <p class="eyebrow">evvaaaaaiiii, allora è un Sì 🎉</p>
 
     <div class="illustration-wrap">
       <svg width="130" height="110" viewBox="0 0 130 110" xmlns="http://www.w3.org/2000/svg">
@@ -33,13 +33,14 @@
     </div>
 
     <h1 class="title">Scegli un momento</h1>
-    <p class="subtitle">Seleziona giorno e ora: hai tante possibilità.</p>
+    <p class="subtitle">Seleziona giorno e ora: comincerò già a contare le ore che mancano.</p>
 
     <form id="formAppuntamento" novalidate>
       <div class="field">
         <label for="data">Che giorno</label>
         <input type="date" id="data" name="data" required>
       </div>
+      <p class="hint" id="hintData">&nbsp;</p>
       <div class="field">
         <label for="ora">A che ora</label>
         <input type="time" id="ora" name="ora" required min="08:00" max="13:00" step="900">
@@ -59,15 +60,12 @@
   const btnConferma = document.getElementById('btnConferma');
   const form = document.getElementById('formAppuntamento');
 
-  // consenti di scegliere solo il giorno di collegamento e quello successivo
+  // consenti di scegliere solo il giorno di collegamento
   const oggi = new Date();
   const oggiISO = oggi.toISOString().split('T')[0];
-  const domani = new Date(oggi);
-  domani.setDate(oggi.getDate() + 1);
-  const domaniISO = domani.toISOString().split('T')[0];
 
   dataInput.min = oggiISO;
-  dataInput.max = domaniISO;
+  dataInput.max = oggiISO;
 
   // fascia oraria consentita: 8:00 - 13:00
   const ORA_MIN = '08:00';
@@ -85,10 +83,15 @@
     }
   }
 
+  const hintData = document.getElementById('hintData');
+
   function correggiData() {
-    if (!dataInput.value) return;
-    if (dataInput.value !== oggiISO && dataInput.value !== domaniISO) {
+    if (!dataInput.value) { hintData.textContent = '\u00A0'; return; }
+    if (dataInput.value !== oggiISO) {
       dataInput.value = '';
+      hintData.textContent = 'troppo tardi 😴';
+    } else {
+      hintData.textContent = '\u00A0';
     }
   }
 
