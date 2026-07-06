@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Ci vediamo domani? 🦥</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="card">
+    <p class="eyebrow">un piccolo pensiero per te</p>
+
+    <div class="sloth-wrap">
+      <svg class="branch" viewBox="0 0 340 190" xmlns="http://www.w3.org/2000/svg">
+        <!-- ramo -->
+        <path d="M10 40 Q170 10 330 45" stroke="#8B6146" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M60 40 Q65 20 80 8" stroke="#8B6146" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M250 42 Q255 20 275 10" stroke="#8B6146" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <!-- foglie sul ramo -->
+        <ellipse cx="82" cy="6" rx="10" ry="6" fill="#4A5D45" transform="rotate(-20 82 6)"/>
+        <ellipse cx="277" cy="8" rx="10" ry="6" fill="#4A5D45" transform="rotate(15 277 8)"/>
+        <ellipse cx="30" cy="35" rx="9" ry="5" fill="#4A5D45" transform="rotate(-30 30 35)"/>
+
+        <!-- bradipo appeso -->
+        <g id="sloth">
+          <!-- braccia che abbracciano il ramo -->
+          <path d="M140 55 Q150 30 175 42" stroke="#8B6146" stroke-width="14" fill="none" stroke-linecap="round"/>
+          <path d="M215 55 Q205 30 180 42" stroke="#8B6146" stroke-width="14" fill="none" stroke-linecap="round"/>
+
+          <!-- corpo -->
+          <ellipse cx="177" cy="110" rx="46" ry="56" fill="#A87F5F"/>
+          <!-- pancia chiara -->
+          <ellipse cx="177" cy="120" rx="30" ry="38" fill="#E8D5B7"/>
+
+          <!-- testa -->
+          <circle cx="177" cy="70" r="34" fill="#C7A27E"/>
+          <!-- macchie occhi (tipiche del bradipo) -->
+          <ellipse cx="164" cy="66" rx="10" ry="13" fill="#6E5136"/>
+          <ellipse cx="190" cy="66" rx="10" ry="13" fill="#6E5136"/>
+          <!-- occhi -->
+          <circle id="eye-l" cx="164" cy="68" r="4.5" fill="#2A1E14"/>
+          <circle id="eye-r" cx="190" cy="68" r="4.5" fill="#2A1E14"/>
+          <!-- naso -->
+          <ellipse cx="177" cy="82" rx="7" ry="5" fill="#3D2E22"/>
+          <!-- sorriso -->
+          <path id="smile" d="M168 88 Q177 93 186 88" stroke="#3D2E22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- guance -->
+          <circle cx="152" cy="82" r="6" fill="#C97D8B" opacity="0.55"/>
+          <circle cx="202" cy="82" r="6" fill="#C97D8B" opacity="0.55"/>
+
+          <!-- braccino con lettera -->
+          <path d="M205 108 Q225 118 222 100" stroke="#A87F5F" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <g transform="translate(213,88) rotate(15)">
+            <rect x="0" y="0" width="20" height="15" rx="2" fill="#FFFDF8" stroke="#C97D8B" stroke-width="1.5"/>
+            <path d="M0 0 L10 8 L20 0" stroke="#C97D8B" stroke-width="1.5" fill="none"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <h1 class="title">Ci vediamo domani?</h1>
+    <p class="subtitle">Il bradipo aspetta la tua risposta&hellip; con calma, ma con il cuore in gola.</p>
+
+    <div class="choice-row">
+      <button class="btn btn-yes" id="btnYes">Sì</button>
+      <button class="btn btn-no" id="btnNo">No</button>
+    </div>
+
+    <p class="hint" id="hint">&nbsp;</p>
+  </div>
+</div>
+
+<script>
+  const btnNo = document.getElementById('btnNo');
+  const btnYes = document.getElementById('btnYes');
+  const hint = document.getElementById('hint');
+  const eyeL = document.getElementById('eye-l');
+  const eyeR = document.getElementById('eye-r');
+  const smile = document.getElementById('smile');
+
+  const hints = [
+    "il bradipo la sposta anche per te",
+    "coraggio, riprova... o forse no 🦥",
+    "quella lì non si prende facilmente",
+    "il No è più veloce del bradipo",
+    "forse il Sì è più comodo"
+  ];
+  let hintIndex = 0;
+  let dodgeCount = 0;
+
+  function placeButtonInitial() {
+    const rect = btnYes.getBoundingClientRect();
+    btnNo.style.left = (rect.right + 18) + 'px';
+    btnNo.style.top = rect.top + 'px';
+  }
+
+  function randomSafePosition() {
+    const margin = 24;
+    const bw = btnNo.offsetWidth || 90;
+    const bh = btnNo.offsetHeight || 50;
+    const maxX = window.innerWidth - bw - margin;
+    const maxY = window.innerHeight - bh - margin;
+    const x = margin + Math.random() * Math.max(1, (maxX - margin));
+    const y = margin + Math.random() * Math.max(1, (maxY - margin));
+    return { x, y };
+  }
+
+  function dodge() {
+    const { x, y } = randomSafePosition();
+    btnNo.style.left = x + 'px';
+    btnNo.style.top = y + 'px';
+    dodgeCount++;
+    hint.textContent = hints[hintIndex % hints.length];
+    hintIndex++;
+  }
+
+  function distanceToButton(clientX, clientY) {
+    const rect = btnNo.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    return Math.hypot(clientX - cx, clientY - cy);
+  }
+
+  const THRESHOLD = 110;
+
+  window.addEventListener('mousemove', (e) => {
+    if (distanceToButton(e.clientX, e.clientY) < THRESHOLD) {
+      dodge();
+    }
+  });
+
+  // Touch: se il dito si avvicina o tocca il bottone, scappa e blocca il click
+  window.addEventListener('touchmove', (e) => {
+    const t = e.touches[0];
+    if (t && distanceToButton(t.clientX, t.clientY) < THRESHOLD) {
+      dodge();
+    }
+  }, { passive: true });
+
+  btnNo.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dodge();
+  }, { passive: false });
+
+  btnNo.addEventListener('click', (e) => {
+    // fallback: non dovrebbe mai attivarsi, ma nel dubbio scappa comunque
+    e.preventDefault();
+    dodge();
+  });
+
+  btnYes.addEventListener('mouseenter', () => {
+    eyeL.setAttribute('ry', '2'); // occhi socchiusi, felice
+    eyeR.setAttribute('ry', '2');
+    smile.setAttribute('d', 'M166 87 Q177 97 188 87');
+  });
+  btnYes.addEventListener('mouseleave', () => {
+    eyeL.setAttribute('ry', '4.5');
+    eyeR.setAttribute('ry', '4.5');
+    smile.setAttribute('d', 'M168 88 Q177 93 186 88');
+  });
+
+  btnYes.addEventListener('click', () => {
+    window.location.href = 'appuntamento.html';
+  });
+
+  window.addEventListener('resize', () => {
+    // riposiziona dentro i confini se la finestra cambia
+    const rect = btnNo.getBoundingClientRect();
+    const maxX = window.innerWidth - rect.width - 24;
+    const maxY = window.innerHeight - rect.height - 24;
+    if (rect.left > maxX || rect.top > maxY) dodge();
+  });
+
+  placeButtonInitial();
+</script>
+
+</body>
+</html>

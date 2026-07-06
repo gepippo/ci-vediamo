@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>È fatta! 🦥💛</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="card">
+    <p class="eyebrow" id="eyebrow">segnato sul calendario del ramo</p>
+
+    <div class="sloth-wrap">
+      <svg width="150" height="130" viewBox="0 0 150 130" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20 Q75 0 140 22" stroke="#8B6146" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <path d="M60 25 Q68 10 82 20" stroke="#8B6146" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M100 25 Q92 10 78 20" stroke="#8B6146" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <ellipse cx="75" cy="80" rx="40" ry="42" fill="#A87F5F"/>
+        <ellipse cx="75" cy="88" rx="26" ry="28" fill="#E8D5B7"/>
+        <circle cx="75" cy="48" r="28" fill="#C7A27E"/>
+        <ellipse cx="64" cy="44" rx="9" ry="11" fill="#6E5136"/>
+        <ellipse cx="86" cy="44" rx="9" ry="11" fill="#6E5136"/>
+        <path d="M60 45 Q64 41 68 45" stroke="#2A1E14" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <path d="M82 45 Q86 41 90 45" stroke="#2A1E14" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="75" cy="58" rx="6" ry="4.5" fill="#3D2E22"/>
+        <path d="M64 64 Q75 74 86 64" stroke="#3D2E22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <circle cx="52" cy="58" r="6" fill="#C97D8B" opacity="0.6"/>
+        <circle cx="98" cy="58" r="6" fill="#C97D8B" opacity="0.6"/>
+        <text x="75" y="18" font-size="18" text-anchor="middle">💛</text>
+      </svg>
+    </div>
+
+    <h1 class="title" id="fraseFinale">Non vedo l'ora di vederti.</h1>
+    <p class="subtitle">Il bradipo ha già iniziato il conto alla rovescia (a modo suo).</p>
+
+    <div class="confirm-detail" id="dettaglio">
+      Appuntamento da confermare
+    </div>
+
+    <a href="#" class="btn btn-whatsapp" id="btnWhatsapp">
+      Condividi su WhatsApp
+    </a>
+
+    <a href="index.html" class="back-link">&larr; ricomincia</a>
+  </div>
+</div>
+
+<script>
+  const data = sessionStorage.getItem('cvd_data');
+  const ora = sessionStorage.getItem('cvd_ora');
+  const dettaglio = document.getElementById('dettaglio');
+  const btnWhatsapp = document.getElementById('btnWhatsapp');
+
+  function formattaData(iso) {
+    if (!iso) return null;
+    const [y, m, d] = iso.split('-');
+    const mesi = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+    return `${parseInt(d,10)} ${mesi[parseInt(m,10)-1]} ${y}`;
+  }
+
+  let messaggio = "Sì, ci vediamo! 🦥💛";
+
+  if (data && ora) {
+    const dataLeggibile = formattaData(data);
+    dettaglio.textContent = `📅 ${dataLeggibile} — 🕐 ${ora}`;
+    messaggio = `Sì, ci vediamo! 🦥💛 Appuntamento: ${dataLeggibile} alle ${ora}.`;
+  } else {
+    dettaglio.textContent = "Nessun appuntamento selezionato";
+  }
+
+  // Nota: se vuoi inviare a un numero specifico, sostituisci PHONE_NUMBER
+  // con il numero in formato internazionale senza + o spazi (es. 393331234567).
+  // Lasciandolo vuoto, l'utente sceglierà lui stesso il contatto a cui inviare.
+  const PHONE_NUMBER = "";
+
+  const base = PHONE_NUMBER ? `https://wa.me/${PHONE_NUMBER}` : `https://wa.me/`;
+  btnWhatsapp.href = `${base}?text=${encodeURIComponent(messaggio)}`;
+</script>
+
+</body>
+</html>

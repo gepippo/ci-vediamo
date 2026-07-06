@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500;1,600&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@600&display=swap');
+
+:root {
+  --cream: #FAF3E7;
+  --cream-deep: #F2E8D5;
+  --moss: #4A5D45;
+  --moss-dark: #38452F;
+  --brown: #8B6146;
+  --brown-light: #A87F5F;
+  --rose: #C97D8B;
+  --rose-deep: #B0596B;
+  --sand: #E8D5B7;
+  --ink: #3D2E22;
+  --shadow: rgba(61, 46, 34, 0.18);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Sfondo: rametti e foglie sparse, discreti */
+.bg-leaves {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 460px;
+  padding: 28px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: center;
+}
+
+.card {
+  background: #FFFDF8;
+  border-radius: 28px;
+  padding: 36px 28px 32px;
+  box-shadow: 0 12px 40px var(--shadow);
+  width: 100%;
+  text-align: center;
+  position: relative;
+  border: 1px solid rgba(139, 97, 70, 0.12);
+}
+
+.eyebrow {
+  font-family: 'Caveat', cursive;
+  font-size: 1.3rem;
+  color: var(--rose-deep);
+  margin: 0 0 4px;
+  letter-spacing: 0.02em;
+}
+
+h1.title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 2.3rem;
+  line-height: 1.15;
+  color: var(--moss-dark);
+  margin: 0 0 8px;
+}
+
+p.subtitle {
+  font-size: 1rem;
+  color: var(--brown);
+  margin: 0 0 26px;
+  line-height: 1.5;
+}
+
+/* Sloth illustration */
+.sloth-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.branch {
+  width: 100%;
+  max-width: 340px;
+}
+
+/* Buttons */
+.btn {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 30px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-yes {
+  background: var(--moss);
+  color: var(--cream);
+  box-shadow: 0 6px 18px rgba(74, 93, 69, 0.35);
+}
+.btn-yes:hover { transform: translateY(-2px) scale(1.03); }
+.btn-yes:active { transform: translateY(0) scale(0.98); }
+
+.btn-no {
+  background: var(--sand);
+  color: var(--brown);
+  box-shadow: 0 4px 12px rgba(139, 97, 70, 0.2);
+  position: fixed;
+  z-index: 50;
+  left: 0;
+  top: 0;
+  transition: left 0.32s cubic-bezier(.34,1.56,.64,1), top 0.32s cubic-bezier(.34,1.56,.64,1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.choice-row {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6px;
+  min-height: 56px;
+}
+
+.hint {
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  color: var(--brown-light);
+  margin-top: 22px;
+  min-height: 24px;
+}
+
+/* Form elements (pagina appuntamento) */
+.field {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  font-family: 'Caveat', cursive;
+  font-size: 1.25rem;
+  color: var(--rose-deep);
+  margin-bottom: 6px;
+}
+
+.field input[type="date"],
+.field input[type="time"] {
+  width: 100%;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--cream);
+  border: 2px solid var(--sand);
+  border-radius: 14px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.field input[type="date"]:focus,
+.field input[type="time"]:focus {
+  border-color: var(--moss);
+}
+
+.btn-confirm {
+  background: var(--rose);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(201, 125, 139, 0.4);
+  width: 100%;
+  margin-top: 6px;
+}
+.btn-confirm:hover { transform: translateY(-2px) scale(1.02); }
+.btn-confirm:disabled {
+  background: var(--sand);
+  color: var(--brown-light);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 18px;
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  color: var(--brown);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--brown-light);
+}
+.back-link:hover { color: var(--rose-deep); }
+
+/* Pagina conferma */
+.confirm-detail {
+  background: var(--cream);
+  border-radius: 18px;
+  padding: 16px 18px;
+  margin: 18px 0 26px;
+  font-weight: 600;
+  color: var(--moss-dark);
+  font-size: 1.05rem;
+}
+
+.btn-whatsapp {
+  background: var(--moss);
+  color: var(--cream);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  box-shadow: 0 6px 18px rgba(74, 93, 69, 0.35);
+  text-decoration: none;
+}
+.btn-whatsapp:hover { transform: translateY(-2px) scale(1.02); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-no { transition: none; }
+  * { animation: none !important; }
+}
+
+@media (max-width: 380px) {
+  h1.title { font-size: 1.9rem; }
+  .card { padding: 28px 20px 26px; }
+}

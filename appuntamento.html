@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quando ci vediamo? 🦥</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="card">
+    <p class="eyebrow">bene, allora è un Sì</p>
+
+    <div class="sloth-wrap">
+      <svg width="130" height="110" viewBox="0 0 130 110" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="65" cy="70" rx="38" ry="34" fill="#A87F5F"/>
+        <circle cx="65" cy="34" r="26" fill="#C7A27E"/>
+        <ellipse cx="55" cy="30" rx="8" ry="10" fill="#6E5136"/>
+        <ellipse cx="75" cy="30" rx="8" ry="10" fill="#6E5136"/>
+        <circle cx="55" cy="31" r="3.5" fill="#2A1E14"/>
+        <circle cx="75" cy="31" r="3.5" fill="#2A1E14"/>
+        <ellipse cx="65" cy="42" rx="5" ry="4" fill="#3D2E22"/>
+        <path d="M58 47 Q65 51 72 47" stroke="#3D2E22" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <h1 class="title">Scegliamo il momento</h1>
+    <p class="subtitle">Dimmi giorno e ora: il bradipo si organizza, con calma, per essere puntuale.</p>
+
+    <form id="formAppuntamento" novalidate>
+      <div class="field">
+        <label for="data">Che giorno</label>
+        <input type="date" id="data" name="data" required>
+      </div>
+      <div class="field">
+        <label for="ora">A che ora</label>
+        <input type="time" id="ora" name="ora" required>
+      </div>
+
+      <button type="submit" class="btn btn-confirm" id="btnConferma" disabled>Conferma</button>
+    </form>
+
+    <a href="index.html" class="back-link">&larr; torna indietro</a>
+  </div>
+</div>
+
+<script>
+  const dataInput = document.getElementById('data');
+  const oraInput = document.getElementById('ora');
+  const btnConferma = document.getElementById('btnConferma');
+  const form = document.getElementById('formAppuntamento');
+
+  // non permettere di scegliere una data nel passato
+  const oggi = new Date().toISOString().split('T')[0];
+  dataInput.min = oggi;
+
+  function aggiornaStatoBottone() {
+    btnConferma.disabled = !(dataInput.value && oraInput.value);
+  }
+  dataInput.addEventListener('input', aggiornaStatoBottone);
+  oraInput.addEventListener('input', aggiornaStatoBottone);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!dataInput.value || !oraInput.value) return;
+    sessionStorage.setItem('cvd_data', dataInput.value);
+    sessionStorage.setItem('cvd_ora', oraInput.value);
+    window.location.href = 'conferma.html';
+  });
+</script>
+
+</body>
+</html>
