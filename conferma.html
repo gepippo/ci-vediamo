@@ -3,37 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>È fatta! 🦥💛</title>
+<title>È fatta! 💛</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="page-wrap">
   <div class="card">
-    <p class="eyebrow" id="eyebrow">segnato sul calendario del ramo</p>
+    <p class="eyebrow" id="eyebrow">segnato sul calendario, con un cuoricino</p>
 
-    <div class="sloth-wrap">
+    <div class="illustration-wrap">
       <svg width="150" height="130" viewBox="0 0 150 130" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 20 Q75 0 140 22" stroke="#8B6146" stroke-width="8" fill="none" stroke-linecap="round"/>
-        <path d="M60 25 Q68 10 82 20" stroke="#8B6146" stroke-width="10" fill="none" stroke-linecap="round"/>
-        <path d="M100 25 Q92 10 78 20" stroke="#8B6146" stroke-width="10" fill="none" stroke-linecap="round"/>
-        <ellipse cx="75" cy="80" rx="40" ry="42" fill="#A87F5F"/>
-        <ellipse cx="75" cy="88" rx="26" ry="28" fill="#E8D5B7"/>
-        <circle cx="75" cy="48" r="28" fill="#C7A27E"/>
-        <ellipse cx="64" cy="44" rx="9" ry="11" fill="#6E5136"/>
-        <ellipse cx="86" cy="44" rx="9" ry="11" fill="#6E5136"/>
-        <path d="M60 45 Q64 41 68 45" stroke="#2A1E14" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <path d="M82 45 Q86 41 90 45" stroke="#2A1E14" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <ellipse cx="75" cy="58" rx="6" ry="4.5" fill="#3D2E22"/>
-        <path d="M64 64 Q75 74 86 64" stroke="#3D2E22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <circle cx="52" cy="58" r="6" fill="#C97D8B" opacity="0.6"/>
-        <circle cx="98" cy="58" r="6" fill="#C97D8B" opacity="0.6"/>
-        <text x="75" y="18" font-size="18" text-anchor="middle">💛</text>
+        <!-- nastro -->
+        <path d="M75 70 L75 118" stroke="#B0596B" stroke-width="6" stroke-linecap="round"/>
+        <path d="M60 108 L90 118 L60 128 Z" fill="#B0596B"/>
+        <!-- gambi -->
+        <path d="M75 70 Q60 50 45 30" stroke="#4A5D45" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M75 70 Q75 45 75 20" stroke="#4A5D45" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M75 70 Q90 50 105 30" stroke="#4A5D45" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- foglie -->
+        <ellipse cx="58" cy="52" rx="9" ry="5" fill="#4A5D45" transform="rotate(-40 58 52)"/>
+        <ellipse cx="92" cy="52" rx="9" ry="5" fill="#4A5D45" transform="rotate(40 92 52)"/>
+
+        <!-- fiore sinistro -->
+        <g transform="translate(45,28)">
+          <circle cx="-8" cy="-4" r="7" fill="#C97D8B"/>
+          <circle cx="8" cy="-4" r="7" fill="#C97D8B"/>
+          <circle cx="0" cy="-14" r="7" fill="#C97D8B"/>
+          <circle cx="0" cy="4" r="7" fill="#C97D8B"/>
+          <circle cx="0" cy="-4" r="5" fill="#E8D5B7"/>
+        </g>
+        <!-- fiore centrale, più grande -->
+        <g transform="translate(75,16)">
+          <circle cx="-10" cy="-5" r="8" fill="#B0596B"/>
+          <circle cx="10" cy="-5" r="8" fill="#B0596B"/>
+          <circle cx="0" cy="-17" r="8" fill="#B0596B"/>
+          <circle cx="0" cy="6" r="8" fill="#B0596B"/>
+          <circle cx="0" cy="-5" r="6" fill="#FAF3E7"/>
+        </g>
+        <!-- fiore destro -->
+        <g transform="translate(105,28)">
+          <circle cx="-8" cy="-4" r="7" fill="#C97D8B"/>
+          <circle cx="8" cy="-4" r="7" fill="#C97D8B"/>
+          <circle cx="0" cy="-14" r="7" fill="#C97D8B"/>
+          <circle cx="0" cy="4" r="7" fill="#C97D8B"/>
+          <circle cx="0" cy="-4" r="5" fill="#E8D5B7"/>
+        </g>
+
+        <!-- cuoricini che volano -->
+        <path d="M20 70 C15 64 6 69 20 80 C34 69 25 64 20 70 Z" fill="#C97D8B" opacity="0.75"/>
+        <path d="M128 78 C124 73 117 77 128 86 C139 77 132 73 128 78 Z" fill="#C97D8B" opacity="0.75"/>
+        <text x="75" y="12" font-size="16" text-anchor="middle">💛</text>
       </svg>
     </div>
 
     <h1 class="title" id="fraseFinale">Non vedo l'ora di vederti.</h1>
-    <p class="subtitle">Il bradipo ha già iniziato il conto alla rovescia (a modo suo).</p>
+    <p class="subtitle">Ho già iniziato il conto alla rovescia.</p>
 
     <div class="confirm-detail" id="dettaglio">
       Appuntamento da confermare

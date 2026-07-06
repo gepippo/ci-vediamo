@@ -92,11 +92,16 @@ p.subtitle {
   line-height: 1.5;
 }
 
-/* Sloth illustration */
-.sloth-wrap {
+/* Illustrazione romantica */
+.illustration-wrap {
   display: flex;
   justify-content: center;
   margin-bottom: 8px;
+}
+
+#heart {
+  transition: transform 0.25s ease;
+  transform-origin: center;
 }
 
 .branch {

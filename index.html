@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ci vediamo domani? 🦥</title>
+<title>Ci vediamo domani? 💛</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
   <div class="card">
     <p class="eyebrow">un piccolo pensiero per te</p>
 
-    <div class="sloth-wrap">
+    <div class="illustration-wrap">
       <svg class="branch" viewBox="0 0 340 190" xmlns="http://www.w3.org/2000/svg">
         <!-- ramo -->
         <path d="M10 40 Q170 10 330 45" stroke="#8B6146" stroke-width="10" fill="none" stroke-linecap="round"/>
@@ -23,45 +23,34 @@
         <ellipse cx="277" cy="8" rx="10" ry="6" fill="#4A5D45" transform="rotate(15 277 8)"/>
         <ellipse cx="30" cy="35" rx="9" ry="5" fill="#4A5D45" transform="rotate(-30 30 35)"/>
 
-        <!-- bradipo appeso -->
-        <g id="sloth">
-          <!-- braccia che abbracciano il ramo -->
-          <path d="M140 55 Q150 30 175 42" stroke="#8B6146" stroke-width="14" fill="none" stroke-linecap="round"/>
-          <path d="M215 55 Q205 30 180 42" stroke="#8B6146" stroke-width="14" fill="none" stroke-linecap="round"/>
+        <!-- fiori appesi al ramo -->
+        <g>
+          <circle cx="110" cy="46" r="5" fill="#FAF3E7"/>
+          <circle cx="100" cy="40" r="4.5" fill="#C97D8B"/>
+          <circle cx="120" cy="40" r="4.5" fill="#C97D8B"/>
+          <circle cx="110" cy="34" r="4.5" fill="#C97D8B"/>
+          <circle cx="110" cy="46" r="2.5" fill="#8B6146"/>
+        </g>
+        <g>
+          <circle cx="245" cy="48" r="4" fill="#FAF3E7"/>
+          <circle cx="238" cy="43" r="3.5" fill="#C97D8B"/>
+          <circle cx="252" cy="43" r="3.5" fill="#C97D8B"/>
+          <circle cx="245" cy="38" r="3.5" fill="#C97D8B"/>
+        </g>
 
-          <!-- corpo -->
-          <ellipse cx="177" cy="110" rx="46" ry="56" fill="#A87F5F"/>
-          <!-- pancia chiara -->
-          <ellipse cx="177" cy="120" rx="30" ry="38" fill="#E8D5B7"/>
-
-          <!-- testa -->
-          <circle cx="177" cy="70" r="34" fill="#C7A27E"/>
-          <!-- macchie occhi (tipiche del bradipo) -->
-          <ellipse cx="164" cy="66" rx="10" ry="13" fill="#6E5136"/>
-          <ellipse cx="190" cy="66" rx="10" ry="13" fill="#6E5136"/>
-          <!-- occhi -->
-          <circle id="eye-l" cx="164" cy="68" r="4.5" fill="#2A1E14"/>
-          <circle id="eye-r" cx="190" cy="68" r="4.5" fill="#2A1E14"/>
-          <!-- naso -->
-          <ellipse cx="177" cy="82" rx="7" ry="5" fill="#3D2E22"/>
-          <!-- sorriso -->
-          <path id="smile" d="M168 88 Q177 93 186 88" stroke="#3D2E22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <!-- guance -->
-          <circle cx="152" cy="82" r="6" fill="#C97D8B" opacity="0.55"/>
-          <circle cx="202" cy="82" r="6" fill="#C97D8B" opacity="0.55"/>
-
-          <!-- braccino con lettera -->
-          <path d="M205 108 Q225 118 222 100" stroke="#A87F5F" stroke-width="12" fill="none" stroke-linecap="round"/>
-          <g transform="translate(213,88) rotate(15)">
-            <rect x="0" y="0" width="20" height="15" rx="2" fill="#FFFDF8" stroke="#C97D8B" stroke-width="1.5"/>
-            <path d="M0 0 L10 8 L20 0" stroke="#C97D8B" stroke-width="1.5" fill="none"/>
+        <!-- cuore pendente al centro -->
+        <g id="heartHang">
+          <path d="M175 50 Q177 65 179 78" stroke="#A87F5F" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <g id="heart" transform="translate(177,116)">
+            <path d="M0 -8 C-16 -22 -34 -6 0 20 C34 -6 16 -22 0 -8 Z" fill="var(--rose)"/>
+            <ellipse cx="-9" cy="-8" rx="4" ry="2.5" fill="#FFFDF8" opacity="0.55" transform="rotate(-25 -9 -8)"/>
           </g>
         </g>
       </svg>
     </div>
 
     <h1 class="title">Ci vediamo domani?</h1>
-    <p class="subtitle">Il bradipo aspetta la tua risposta&hellip; con calma, ma con il cuore in gola.</p>
+    <p class="subtitle">Aspetto la tua risposta&hellip; con il cuore in gola.</p>
 
     <div class="choice-row">
       <button class="btn btn-yes" id="btnYes">Sì</button>
@@ -76,16 +65,14 @@
   const btnNo = document.getElementById('btnNo');
   const btnYes = document.getElementById('btnYes');
   const hint = document.getElementById('hint');
-  const eyeL = document.getElementById('eye-l');
-  const eyeR = document.getElementById('eye-r');
-  const smile = document.getElementById('smile');
+  const heart = document.getElementById('heart');
 
   const hints = [
-    "il bradipo la sposta anche per te",
-    "coraggio, riprova... o forse no 🦥",
-    "quella lì non si prende facilmente",
-    "il No è più veloce del bradipo",
-    "forse il Sì è più comodo"
+    "il cuore lo sposta anche per te",
+    "coraggio, riprova... o forse no 💛",
+    "quel No non si prende facilmente",
+    "il Sì è la scelta più comoda",
+    "forse è meglio arrendersi al Sì"
   ];
   let hintIndex = 0;
   let dodgeCount = 0;
@@ -152,14 +139,10 @@
   });
 
   btnYes.addEventListener('mouseenter', () => {
-    eyeL.setAttribute('ry', '2'); // occhi socchiusi, felice
-    eyeR.setAttribute('ry', '2');
-    smile.setAttribute('d', 'M166 87 Q177 97 188 87');
+    heart.style.transform = 'scale(1.15)';
   });
   btnYes.addEventListener('mouseleave', () => {
-    eyeL.setAttribute('ry', '4.5');
-    eyeR.setAttribute('ry', '4.5');
-    smile.setAttribute('d', 'M168 88 Q177 93 186 88');
+    heart.style.transform = 'scale(1)';
   });
 
   btnYes.addEventListener('click', () => {

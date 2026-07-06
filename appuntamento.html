@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quando ci vediamo? 🦥</title>
+<title>Quando ci vediamo? 💛</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,21 +12,28 @@
   <div class="card">
     <p class="eyebrow">bene, allora è un Sì</p>
 
-    <div class="sloth-wrap">
+    <div class="illustration-wrap">
       <svg width="130" height="110" viewBox="0 0 130 110" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="65" cy="70" rx="38" ry="34" fill="#A87F5F"/>
-        <circle cx="65" cy="34" r="26" fill="#C7A27E"/>
-        <ellipse cx="55" cy="30" rx="8" ry="10" fill="#6E5136"/>
-        <ellipse cx="75" cy="30" rx="8" ry="10" fill="#6E5136"/>
-        <circle cx="55" cy="31" r="3.5" fill="#2A1E14"/>
-        <circle cx="75" cy="31" r="3.5" fill="#2A1E14"/>
-        <ellipse cx="65" cy="42" rx="5" ry="4" fill="#3D2E22"/>
-        <path d="M58 47 Q65 51 72 47" stroke="#3D2E22" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- corona di foglie -->
+        <path d="M65 12 C30 12 12 40 20 65 C28 90 50 100 65 100 C80 100 102 90 110 65 C118 40 100 12 65 12 Z"
+              fill="none" stroke="#4A5D45" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 8"/>
+        <ellipse cx="65" cy="12" rx="8" ry="5" fill="#4A5D45" transform="rotate(90 65 12)"/>
+        <ellipse cx="65" cy="100" rx="8" ry="5" fill="#4A5D45" transform="rotate(90 65 100)"/>
+        <ellipse cx="20" cy="65" rx="8" ry="5" fill="#4A5D45" transform="rotate(20 20 65)"/>
+        <ellipse cx="110" cy="65" rx="8" ry="5" fill="#4A5D45" transform="rotate(-20 110 65)"/>
+        <!-- piccoli fiori -->
+        <circle cx="34" cy="30" r="4" fill="#C97D8B"/>
+        <circle cx="96" cy="30" r="4" fill="#C97D8B"/>
+        <circle cx="34" cy="82" r="4" fill="#C97D8B"/>
+        <circle cx="96" cy="82" r="4" fill="#C97D8B"/>
+        <!-- cuore al centro -->
+        <path d="M65 45 C50 30 30 47 65 78 C100 47 80 30 65 45 Z" fill="var(--rose)"/>
+        <ellipse cx="55" cy="42" rx="4" ry="2.5" fill="#FFFDF8" opacity="0.55" transform="rotate(-25 55 42)"/>
       </svg>
     </div>
 
     <h1 class="title">Scegliamo il momento</h1>
-    <p class="subtitle">Dimmi giorno e ora: il bradipo si organizza, con calma, per essere puntuale.</p>
+    <p class="subtitle">Dimmi giorno e ora: da quel momento comincio già a contare le ore.</p>
 
     <form id="formAppuntamento" novalidate>
       <div class="field">
