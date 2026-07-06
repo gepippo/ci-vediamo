@@ -101,6 +101,7 @@ p.subtitle {
 
 #heart {
   transition: transform 0.25s ease;
+  transform-box: fill-box;
   transform-origin: center;
 }
 

@@ -10,7 +10,7 @@
 
 <div class="page-wrap">
   <div class="card">
-    <p class="eyebrow">allora è un Sì, ottima scelta 🎉</p>
+    <p class="eyebrow">evvaaaaaiiii, allora è un Sì 🎉</p>
 
     <div class="illustration-wrap">
       <svg width="130" height="110" viewBox="0 0 130 110" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +33,7 @@
     </div>
 
     <h1 class="title">Scegli un momento</h1>
-    <p class="subtitle">Seleziona giorno e ora: hai un'ampia scelta.</p>
+    <p class="subtitle">Seleziona giorno e ora: comincerò già a contare le ore che mancano.</p>
 
     <form id="formAppuntamento" novalidate>
       <div class="field">
@@ -44,6 +44,7 @@
         <label for="ora">A che ora</label>
         <input type="time" id="ora" name="ora" required min="08:00" max="13:00" step="900">
       </div>
+      <p class="hint" id="hintOra">&nbsp;</p>
 
       <button type="submit" class="btn btn-confirm" id="btnConferma" disabled>Conferma</button>
     </form>
@@ -58,29 +59,35 @@
   const btnConferma = document.getElementById('btnConferma');
   const form = document.getElementById('formAppuntamento');
 
-  // consenti di scegliere solo il giorno successivo a quello di collegamento
+  // consenti di scegliere solo il giorno di collegamento e quello successivo
   const oggi = new Date();
+  const oggiISO = oggi.toISOString().split('T')[0];
   const domani = new Date(oggi);
   domani.setDate(oggi.getDate() + 1);
   const domaniISO = domani.toISOString().split('T')[0];
 
-  dataInput.min = domaniISO;
+  dataInput.min = oggiISO;
   dataInput.max = domaniISO;
 
   // fascia oraria consentita: 8:00 - 13:00
   const ORA_MIN = '08:00';
   const ORA_MAX = '13:00';
 
+  const hintOra = document.getElementById('hintOra');
+
   function correggiOrario() {
-    if (!oraInput.value) return;
+    if (!oraInput.value) { hintOra.textContent = '\u00A0'; return; }
     if (oraInput.value < ORA_MIN || oraInput.value > ORA_MAX) {
       oraInput.value = '';
+      hintOra.textContent = 'troppo tardi 😴';
+    } else {
+      hintOra.textContent = '\u00A0';
     }
   }
 
   function correggiData() {
     if (!dataInput.value) return;
-    if (dataInput.value !== domaniISO) {
+    if (dataInput.value !== oggiISO && dataInput.value !== domaniISO) {
       dataInput.value = '';
     }
   }

@@ -82,9 +82,11 @@
         <!-- cuore rosso pendente al centro -->
         <g id="heartHang">
           <path d="M170 13 Q171 35 170 58" stroke="#A87F5F" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <g id="heart" transform="translate(170,82)">
-            <path d="M0 -12 C-20 -30 -42 -8 0 26 C42 -8 20 -30 0 -12 Z" fill="#E63946"/>
-            <ellipse cx="-11" cy="-11" rx="4.5" ry="3" fill="#FFFDF8" opacity="0.5" transform="rotate(-25 -11 -11)"/>
+          <g transform="translate(170,82)">
+            <g id="heart">
+              <path d="M0 -12 C-20 -30 -42 -8 0 26 C42 -8 20 -30 0 -12 Z" fill="#E63946"/>
+              <ellipse cx="-11" cy="-11" rx="4.5" ry="3" fill="#FFFDF8" opacity="0.5" transform="rotate(-25 -11 -11)"/>
+            </g>
           </g>
         </g>
       </svg>
