@@ -38,14 +38,16 @@
     <form id="formAppuntamento" novalidate>
       <div class="field">
         <label for="data">Che giorno</label>
-        <input type="date" id="data" name="data" required>
+        <select id="data" name="data" required>
+          <option value="" disabled selected>Seleziona il giorno</option>
+        </select>
       </div>
-      <p class="hint" id="hintData">&nbsp;</p>
       <div class="field">
         <label for="ora">A che ora</label>
-        <input type="time" id="ora" name="ora" required min="08:00" max="13:00" step="900">
+        <select id="ora" name="ora" required>
+          <option value="" disabled selected>Seleziona l'ora</option>
+        </select>
       </div>
-      <p class="hint" id="hintOra">&nbsp;</p>
 
       <button type="submit" class="btn btn-confirm" id="btnConferma" disabled>Conferma</button>
     </form>
@@ -59,48 +61,46 @@
   const oraInput = document.getElementById('ora');
   const btnConferma = document.getElementById('btnConferma');
   const form = document.getElementById('formAppuntamento');
-  const hintData = document.getElementById('hintData');
-  const hintOra = document.getElementById('hintOra');
 
-  // consenti di scegliere solo il giorno di collegamento (sysdate)
+  const mesi = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+
+  function formattaLabelData(d) {
+    return `${d.getDate()} ${mesi[d.getMonth()]}`;
+  }
+
+  function isoLocale(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const g = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${g}`;
+  }
+
+  // popola il menu data: solo il giorno di collegamento e il giorno successivo
   const oggi = new Date();
-  const oggiISO = oggi.toISOString().split('T')[0];
+  const domani = new Date(oggi);
+  domani.setDate(oggi.getDate() + 1);
 
-  dataInput.min = oggiISO;
-  dataInput.max = oggiISO;
+  [oggi, domani].forEach((d) => {
+    const opt = document.createElement('option');
+    opt.value = isoLocale(d);
+    opt.textContent = formattaLabelData(d);
+    dataInput.appendChild(opt);
+  });
 
-  // fascia oraria consentita: 8:00 - 13:00
-  const ORA_MIN = '08:00';
-  const ORA_MAX = '13:00';
-
-  function correggiData() {
-    if (!dataInput.value) { hintData.textContent = '\u00A0'; return; }
-    if (dataInput.value !== oggiISO) {
-      dataInput.value = '';
-      hintData.textContent = 'troppo tardi 😴';
-    } else {
-      hintData.textContent = '\u00A0';
-    }
-  }
-
-  function correggiOrario() {
-    if (!oraInput.value) { hintOra.textContent = '\u00A0'; return; }
-    if (oraInput.value < ORA_MIN || oraInput.value > ORA_MAX) {
-      oraInput.value = '';
-      hintOra.textContent = 'troppo tardi 😴';
-    } else {
-      hintOra.textContent = '\u00A0';
-    }
-  }
+  // popola il menu ora: solo le fasce orarie tra le 9 e le 13
+  ['09:00', '10:00', '11:00', '12:00', '13:00'].forEach((ora) => {
+    const opt = document.createElement('option');
+    opt.value = ora;
+    opt.textContent = ora;
+    oraInput.appendChild(opt);
+  });
 
   function aggiornaStatoBottone() {
     btnConferma.disabled = !(dataInput.value && oraInput.value);
   }
 
-  dataInput.addEventListener('input', () => { correggiData(); aggiornaStatoBottone(); });
-  dataInput.addEventListener('change', () => { correggiData(); aggiornaStatoBottone(); });
-  oraInput.addEventListener('input', () => { correggiOrario(); aggiornaStatoBottone(); });
-  oraInput.addEventListener('change', () => { correggiOrario(); aggiornaStatoBottone(); });
+  dataInput.addEventListener('change', aggiornaStatoBottone);
+  oraInput.addEventListener('change', aggiornaStatoBottone);
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
