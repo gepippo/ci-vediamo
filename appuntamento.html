@@ -10,7 +10,7 @@
 
 <div class="page-wrap">
   <div class="card">
-    <p class="eyebrow">bene, allora è un Sì</p>
+    <p class="eyebrow">allora è un Sì, ottima scelta 🎉</p>
 
     <div class="illustration-wrap">
       <svg width="130" height="110" viewBox="0 0 130 110" xmlns="http://www.w3.org/2000/svg">
@@ -27,13 +27,13 @@
         <circle cx="34" cy="82" r="4" fill="#C97D8B"/>
         <circle cx="96" cy="82" r="4" fill="#C97D8B"/>
         <!-- cuore al centro -->
-        <path d="M65 45 C50 30 30 47 65 78 C100 47 80 30 65 45 Z" fill="var(--rose)"/>
+        <path d="M65 45 C50 30 30 47 65 78 C100 47 80 30 65 45 Z" fill="#E63946"/>
         <ellipse cx="55" cy="42" rx="4" ry="2.5" fill="#FFFDF8" opacity="0.55" transform="rotate(-25 55 42)"/>
       </svg>
     </div>
 
-    <h1 class="title">Scegliamo il momento</h1>
-    <p class="subtitle">Dimmi giorno e ora: da quel momento comincio già a contare le ore.</p>
+    <h1 class="title">Scegli un momento</h1>
+    <p class="subtitle">Seleziona giorno e ora: hai un'ampia scelta.</p>
 
     <form id="formAppuntamento" novalidate>
       <div class="field">
@@ -42,7 +42,7 @@
       </div>
       <div class="field">
         <label for="ora">A che ora</label>
-        <input type="time" id="ora" name="ora" required>
+        <input type="time" id="ora" name="ora" required min="08:00" max="13:00" step="900">
       </div>
 
       <button type="submit" class="btn btn-confirm" id="btnConferma" disabled>Conferma</button>
@@ -58,15 +58,41 @@
   const btnConferma = document.getElementById('btnConferma');
   const form = document.getElementById('formAppuntamento');
 
-  // non permettere di scegliere una data nel passato
-  const oggi = new Date().toISOString().split('T')[0];
-  dataInput.min = oggi;
+  // consenti di scegliere solo il giorno successivo a quello di collegamento
+  const oggi = new Date();
+  const domani = new Date(oggi);
+  domani.setDate(oggi.getDate() + 1);
+  const domaniISO = domani.toISOString().split('T')[0];
+
+  dataInput.min = domaniISO;
+  dataInput.max = domaniISO;
+
+  // fascia oraria consentita: 8:00 - 13:00
+  const ORA_MIN = '08:00';
+  const ORA_MAX = '13:00';
+
+  function correggiOrario() {
+    if (!oraInput.value) return;
+    if (oraInput.value < ORA_MIN || oraInput.value > ORA_MAX) {
+      oraInput.value = '';
+    }
+  }
+
+  function correggiData() {
+    if (!dataInput.value) return;
+    if (dataInput.value !== domaniISO) {
+      dataInput.value = '';
+    }
+  }
 
   function aggiornaStatoBottone() {
     btnConferma.disabled = !(dataInput.value && oraInput.value);
   }
-  dataInput.addEventListener('input', aggiornaStatoBottone);
-  oraInput.addEventListener('input', aggiornaStatoBottone);
+
+  dataInput.addEventListener('input', () => { correggiData(); aggiornaStatoBottone(); });
+  dataInput.addEventListener('change', () => { correggiData(); aggiornaStatoBottone(); });
+  oraInput.addEventListener('input', () => { correggiOrario(); aggiornaStatoBottone(); });
+  oraInput.addEventListener('change', () => { correggiOrario(); aggiornaStatoBottone(); });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
