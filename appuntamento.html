@@ -38,12 +38,12 @@
     <form id="formAppuntamento" novalidate>
       <div class="field">
         <label for="data">Che giorno</label>
-        <input type="text" id="data" name="data" inputmode="numeric" placeholder="gg/mm/aaaa" maxlength="10" autocomplete="off" required>
+        <input type="date" id="data" name="data" required>
       </div>
       <p class="hint" id="hintData">&nbsp;</p>
       <div class="field">
         <label for="ora">A che ora</label>
-        <input type="text" id="ora" name="ora" inputmode="numeric" placeholder="hh:mm" maxlength="5" autocomplete="off" required>
+        <input type="time" id="ora" name="ora" required min="08:00" max="13:00" step="900">
       </div>
       <p class="hint" id="hintOra">&nbsp;</p>
 
@@ -66,51 +66,16 @@
   const oggi = new Date();
   const oggiISO = oggi.toISOString().split('T')[0];
 
+  dataInput.min = oggiISO;
+  dataInput.max = oggiISO;
+
   // fascia oraria consentita: 8:00 - 13:00
   const ORA_MIN = '08:00';
   const ORA_MAX = '13:00';
 
-  function soloNumeri(str) {
-    return str.replace(/\D/g, '');
-  }
-
-  // mascheratura automatica del campo data in formato gg/mm/aaaa
-  function formattaDataInput() {
-    const cifre = soloNumeri(dataInput.value).slice(0, 8);
-    let formattato = cifre;
-    if (cifre.length > 4) {
-      formattato = cifre.slice(0, 2) + '/' + cifre.slice(2, 4) + '/' + cifre.slice(4);
-    } else if (cifre.length > 2) {
-      formattato = cifre.slice(0, 2) + '/' + cifre.slice(2);
-    }
-    dataInput.value = formattato;
-  }
-
-  // mascheratura automatica del campo ora in formato HH:mm (24h)
-  function formattaOraInput() {
-    const cifre = soloNumeri(oraInput.value).slice(0, 4);
-    let formattato = cifre;
-    if (cifre.length > 2) {
-      formattato = cifre.slice(0, 2) + ':' + cifre.slice(2);
-    }
-    oraInput.value = formattato;
-  }
-
-  // converte gg/mm/aaaa in aaaa-mm-gg (ISO), null se il formato non è valido
-  function parseDataISO(str) {
-    const m = str.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-    if (!m) return null;
-    const [, gg, mm, aaaa] = m;
-    const iso = `${aaaa}-${mm}-${gg}`;
-    const d = new Date(iso + 'T00:00:00');
-    if (isNaN(d.getTime()) || d.getDate() !== parseInt(gg, 10)) return null;
-    return iso;
-  }
-
   function correggiData() {
     if (!dataInput.value) { hintData.textContent = '\u00A0'; return; }
-    const iso = parseDataISO(dataInput.value);
-    if (!iso || iso !== oggiISO) {
+    if (dataInput.value !== oggiISO) {
       dataInput.value = '';
       hintData.textContent = 'troppo tardi 😴';
     } else {
@@ -120,9 +85,7 @@
 
   function correggiOrario() {
     if (!oraInput.value) { hintOra.textContent = '\u00A0'; return; }
-    const m = oraInput.value.match(/^([0-2]\d):([0-5]\d)$/);
-    const valido = m && parseInt(m[1], 10) <= 23 && oraInput.value >= ORA_MIN && oraInput.value <= ORA_MAX;
-    if (!valido) {
+    if (oraInput.value < ORA_MIN || oraInput.value > ORA_MAX) {
       oraInput.value = '';
       hintOra.textContent = 'troppo tardi 😴';
     } else {
@@ -131,21 +94,18 @@
   }
 
   function aggiornaStatoBottone() {
-    btnConferma.disabled = !(dataInput.value.length === 10 && oraInput.value.length === 5);
+    btnConferma.disabled = !(dataInput.value && oraInput.value);
   }
 
-  dataInput.addEventListener('input', () => { formattaDataInput(); aggiornaStatoBottone(); });
-  dataInput.addEventListener('blur', () => { correggiData(); aggiornaStatoBottone(); });
-  oraInput.addEventListener('input', () => { formattaOraInput(); aggiornaStatoBottone(); });
-  oraInput.addEventListener('blur', () => { correggiOrario(); aggiornaStatoBottone(); });
+  dataInput.addEventListener('input', () => { correggiData(); aggiornaStatoBottone(); });
+  dataInput.addEventListener('change', () => { correggiData(); aggiornaStatoBottone(); });
+  oraInput.addEventListener('input', () => { correggiOrario(); aggiornaStatoBottone(); });
+  oraInput.addEventListener('change', () => { correggiOrario(); aggiornaStatoBottone(); });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    correggiData();
-    correggiOrario();
-    const isoData = parseDataISO(dataInput.value);
-    if (!isoData || !oraInput.value) return;
-    sessionStorage.setItem('cvd_data', isoData);
+    if (!dataInput.value || !oraInput.value) return;
+    sessionStorage.setItem('cvd_data', dataInput.value);
     sessionStorage.setItem('cvd_ora', oraInput.value);
     window.location.href = 'conferma.html';
   });
