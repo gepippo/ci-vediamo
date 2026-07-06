@@ -75,12 +75,10 @@
     return `${y}-${m}-${g}`;
   }
 
-  // popola il menu data: solo il giorno di collegamento e il giorno successivo
+  // popola il menu data: solo il giorno di collegamento
   const oggi = new Date();
-  const domani = new Date(oggi);
-  domani.setDate(oggi.getDate() + 1);
 
-  [oggi, domani].forEach((d) => {
+  [oggi].forEach((d) => {
     const opt = document.createElement('option');
     opt.value = isoLocale(d);
     opt.textContent = formattaLabelData(d);
