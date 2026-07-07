@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>È fatta! 💛</title>
+<title>È fatta! ❤️</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -53,7 +53,7 @@
         <!-- cuoricini che volano -->
         <path d="M20 70 C15 64 6 69 20 80 C34 69 25 64 20 70 Z" fill="#C97D8B" opacity="0.75"/>
         <path d="M128 78 C124 73 117 77 128 86 C139 77 132 73 128 78 Z" fill="#C97D8B" opacity="0.75"/>
-        <text x="75" y="12" font-size="16" text-anchor="middle">💛</text>
+        <text x="75" y="12" font-size="16" text-anchor="middle">❤️</text>
       </svg>
     </div>
 
@@ -85,12 +85,12 @@
     return `${parseInt(d,10)} ${mesi[parseInt(m,10)-1]} ${y}`;
   }
 
-  let messaggio = "Sì, ci vediamo! 🦥💛";
+  let messaggio = "Sì, ci vediamo! 🦥❤️";
 
   if (data && ora) {
     const dataLeggibile = formattaData(data);
     dettaglio.textContent = `📅 ${dataLeggibile} — 🕐 ${ora}`;
-    messaggio = `Sì, ci vediamo! 🦥💛 Appuntamento: ${dataLeggibile} alle ${ora}.`;
+    messaggio = `Sì, ci vediamo! 🦥❤️ Appuntamento: ${dataLeggibile} alle ${ora}.`;
   } else {
     dettaglio.textContent = "Nessun appuntamento selezionato";
   }
