@@ -75,10 +75,15 @@
     return `${y}-${m}-${g}`;
   }
 
-  // popola il menu data: solo il giorno di collegamento
+  // popola il menu data: il giorno di collegamento,
+  // ma se ci si collega dopo le 13:00 (fascia già passata) si propone il giorno successivo
   const oggi = new Date();
+  const giornoAppuntamento = new Date(oggi);
+  if (oggi.getHours() >= 13) {
+    giornoAppuntamento.setDate(oggi.getDate() + 1);
+  }
 
-  [oggi].forEach((d) => {
+  [giornoAppuntamento].forEach((d) => {
     const opt = document.createElement('option');
     opt.value = isoLocale(d);
     opt.textContent = formattaLabelData(d);
